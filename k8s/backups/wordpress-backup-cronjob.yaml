@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: wordpress-backup
+  namespace: cms
+spec:
+  schedule: "15 2 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: wordpress-backup
+            image: alpine:3.20
+            command:
+            - /bin/sh
+            - -ec
+            - |
+              TS=$(date +%F_%H%M)
+              OUTDIR=/backups/wp
+              mkdir -p "${OUTDIR}"
+              tar -czf "${OUTDIR}/wp-content_${TS}.tar.gz" -C /source wp-content
+              find "${OUTDIR}" -type f -mtime +14 -name "*.tar.gz" -delete
+            volumeMounts:
+            - name: wordpress-data
+              mountPath: /source
+              readOnly: true
+              subPath: wordpress
+            - name: backups
+              mountPath: /backups
+          volumes:
+          - name: wordpress-data
+            persistentVolumeClaim:
+              claimName: wordpress
+          - name: backups
+            persistentVolumeClaim:
+              claimName: cms-backups-wp-pvc
+          nodeSelector:
+            kubernetes.io/hostname: k3s-w1

@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mariadb-backup
+  namespace: cms
+spec:
+  schedule: "0 2 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: mariadb-backup
+            image: bitnami/mariadb:latest
+            env:
+            - name: DB_HOST
+              value: mariadb.cms.svc.cluster.local
+            - name: DB_NAME
+              value: wordpress
+            - name: DB_USER
+              value: dustin
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb
+                  key: mariadb-password
+            command:
+            - /bin/bash
+            - -ec
+            - |
+              TS=$(date +%F_%H%M)
+              OUTDIR=/backups/db
+              mkdir -p "${OUTDIR}"
+              mariadb-dump -h "${DB_HOST}" -u "${DB_USER}" -p"${DB_PASS}" "${DB_NAME}" \
+                | gzip > "${OUTDIR}/wordpress_${TS}.sql.gz"
+              find "${OUTDIR}" -type f -mtime +14 -name "*.sql.gz" -delete
+            volumeMounts:
+            - name: backups
+              mountPath: /backups
+          volumes:
+          - name: backups
+            persistentVolumeClaim:
+              claimName: cms-backups-pvc
+          nodeSelector:
+            kubernetes.io/hostname: k3s-w3

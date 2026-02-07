@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: list-wp-backups
+  namespace: cms
+spec:
+  restartPolicy: Never
+  nodeSelector:
+    kubernetes.io/hostname: k3s-w1
+  containers:
+  - name: list
+    image: alpine:3.20
+    command: ["/bin/sh", "-ec", "ls -la /backups && ls -la /backups/wp || true"]
+    volumeMounts:
+    - name: backups
+      mountPath: /backups
+  volumes:
+  - name: backups
+    persistentVolumeClaim:
+      claimName: cms-backups-wp-pvc

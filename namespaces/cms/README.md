@@ -36,6 +36,19 @@ Rebuild requires:
 - Re-applying manifests
 - Restoring database and uploads
 
+## Scheduling Notes (Manual)
+CMS workloads are intended to run on amd64 nodes only.
+
+Preferred nodes:
+- Proxmox VMs
+- Bare metal servers
+
+Raspberry Pi (ARM) nodes are excluded unless explicitly overridden.
+
+Node labels used:
+- node.platform=amd64
+- node.type in {vm,baremetal}
+
 ---
 
 ## 🔁 Generated Section (DO NOT EDIT BELOW)

@@ -1,0 +1,16 @@
+auth:
+  enabled: false
+master:
+  disableCommands: []
+  persistence:
+    enabled: false
+replica:
+  disableCommands: []
+  replicaCount: 0
+resources:
+  limits:
+    cpu: 250m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

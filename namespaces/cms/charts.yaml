@@ -1,0 +1,12 @@
+- release: mariadb
+  namespace: cms
+  chart: mariadb-24.0.4
+  appVersion: 12.1.2
+- release: redis
+  namespace: cms
+  chart: redis-24.1.3
+  appVersion: 8.4.0
+- release: wordpress
+  namespace: cms
+  chart: wordpress-28.1.5
+  appVersion: 6.9.1

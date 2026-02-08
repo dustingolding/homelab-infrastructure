@@ -1,0 +1,68 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Namespace Metadata
+name: namespace.meta.yaml
+
+type: object
+required:
+  - namespace
+  - purpose
+  - exposure
+  - data
+  - dependencies
+  - criticality
+  - rebuild_time_estimate
+  - owners
+properties:
+  namespace:
+    type: string
+    description: Namespace name
+  purpose:
+    type: string
+    description: Why this namespace exists
+  exposure:
+    type: object
+    required:
+      - type
+      - ingress
+      - domains
+    properties:
+      type:
+        type: string
+        enum: [public, internal, private]
+      ingress:
+        type: string
+      domains:
+        type: array
+        items:
+          type: string
+  data:
+    type: object
+    required:
+      - persistence
+      - components
+      - backup_required
+    properties:
+      persistence:
+        type: boolean
+      components:
+        type: array
+        items:
+          type: string
+      backup_required:
+        type: boolean
+  dependencies:
+    type: array
+    items:
+      type: string
+  criticality:
+    type: string
+    enum: [low, medium, high]
+  rebuild_time_estimate:
+    type: string
+  owners:
+    type: array
+    items:
+      type: string
+  notes:
+    type: string
+additionalProperties: false

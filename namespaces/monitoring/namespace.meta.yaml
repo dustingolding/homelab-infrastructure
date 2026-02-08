@@ -1,0 +1,25 @@
+namespace: monitoring
+purpose: Metrics, alerting, and dashboards for cluster health.
+
+exposure:
+  type: internal
+  ingress: nginx
+  domains: []
+
+data:
+  persistence: true
+  components:
+    - prometheus
+    - grafana
+    - loki
+  backup_required: true
+
+dependencies:
+  - ingress-nginx
+  - observability
+
+criticality: high
+rebuild_time_estimate: "30–60 minutes"
+
+owners:
+  - dustin

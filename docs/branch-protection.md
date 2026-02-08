@@ -13,8 +13,8 @@ This repo assumes strict branch protection on `main`.
 - Restrict who can push: On (only you + automation)
 
 ## Optional (Decide Later)
-- Require signed commits: Optional
-- Require linear history: Optional
+- Require signed commits: On
+- Require linear history: On
 - Require code owners: On (if `CODEOWNERS` exists)
 
 ## Required Status Checks

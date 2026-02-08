@@ -1,10 +1,20 @@
 # Observability Namespace
 
 ## Overview (Manual)
-This namespace contains telemetry and logging pipeline components used by the cluster.
+This namespace contains observability agents responsible for collecting logs and telemetry from cluster workloads.
+
+It currently runs Grafana Alloy as a DaemonSet on all nodes.
 
 ## Access (Manual)
-Access is internal via Kubernetes or internal ingress endpoints where applicable.
+There is no user-facing interface in this namespace.
+
+Logs and telemetry are forwarded to Loki and Prometheus in the monitoring namespace.
+
+Status can be inspected with:
+```
+kubectl -n observability get pods
+kubectl -n observability logs <pod>
+```
 
 Upgrade example:
 Upgrade order:
@@ -34,7 +44,7 @@ Metadata:
 - namespace: observability
 - purpose: Logging and telemetry pipelines for cluster services.
 - exposure.type: internal
-- exposure.ingress: nginx
+- exposure.ingress: none
 - exposure.domains: none
 - data.persistence: false
 - data.components: alloy

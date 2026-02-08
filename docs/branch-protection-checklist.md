@@ -17,6 +17,6 @@ Apply to branch pattern: `main`
 - `validate-live-cluster / live-cluster-diff`
 
 ## Optional
-- Require signed commits
-- Require linear history
+- Require signed commits (enabled)
+- Require linear history (enabled)
 - Require review from Code Owners

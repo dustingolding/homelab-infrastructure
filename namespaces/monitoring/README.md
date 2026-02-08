@@ -1,12 +1,22 @@
 # Monitoring Namespace
 
 ## Overview (Manual)
-This namespace contains monitoring and alerting services for cluster health and application visibility.
+This namespace contains the monitoring stack for the Kubernetes cluster.
 
-It typically includes Prometheus, Grafana, and supporting components.
+It includes Prometheus for metrics collection, Grafana for visualization, and Loki for log aggregation.
 
 ## Access (Manual)
-Access is internal. Dashboards are exposed via ingress on internal domains and require authentication.
+Grafana is accessible via:
+- http://grafana.homelab.local
+
+Authentication:
+- Grafana local users
+- Admin credentials stored as Kubernetes secrets
+
+If ingress is unavailable, Grafana can be accessed via port-forward:
+```
+kubectl -n monitoring port-forward svc/grafana 3000:80
+```
 
 Upgrade example:
 Upgrade order:
@@ -40,7 +50,7 @@ Metadata:
 - purpose: Metrics, alerting, and dashboards for cluster health.
 - exposure.type: internal
 - exposure.ingress: nginx
-- exposure.domains: none
+- exposure.domains: grafana.homelab.local
 - data.persistence: true
 - data.components: prometheus, grafana, loki
 - data.backup_required: true

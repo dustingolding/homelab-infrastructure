@@ -3,7 +3,7 @@ purpose: Logging and telemetry pipelines for cluster services.
 
 exposure:
   type: internal
-  ingress: nginx
+  ingress: none
   domains: []
 
 data:

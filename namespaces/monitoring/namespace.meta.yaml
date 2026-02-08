@@ -4,7 +4,8 @@ purpose: Metrics, alerting, and dashboards for cluster health.
 exposure:
   type: internal
   ingress: nginx
-  domains: []
+  domains:
+    - grafana.homelab.local
 
 data:
   persistence: true

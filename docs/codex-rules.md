@@ -17,6 +17,7 @@ These rules are authoritative for repo automation.
 - No manual edits to live clusters without a matching commit.
 - Every change must be reviewable, reversible, and explainable.
 - `main` is protected and requires passing checks and review.
+- Use signed commits for all changes.
 
 ## Helm Values Export
 - Use `scripts/export-helm-values.py` to align repo values with live Helm releases.

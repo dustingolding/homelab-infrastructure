@@ -1,0 +1,23 @@
+namespace: ingress-nginx
+purpose: Ingress controller for cluster HTTP/S routing.
+
+exposure:
+  type: public
+  ingress: nginx
+  domains: []
+
+data:
+  persistence: false
+  components:
+    - ingress-nginx
+  backup_required: false
+
+dependencies:
+  - monitoring
+  - observability
+
+criticality: high
+rebuild_time_estimate: "15–30 minutes"
+
+owners:
+  - dustin

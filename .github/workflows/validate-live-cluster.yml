@@ -1,0 +1,20 @@
+name: validate-live-cluster
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  live-cluster-diff:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: pip install -r scripts/requirements.txt
+      - name: Verify live cluster alignment
+        run: scripts/verify-live-cluster.sh

@@ -1,0 +1,28 @@
+namespace: cms
+purpose: >
+  Public-facing WordPress workloads used for future monetized sites.
+
+exposure:
+  type: public
+  ingress: nginx
+  domains:
+    - thealgoera.com
+    - www.thealgoera.com
+
+data:
+  persistence: true
+  components:
+    - mariadb
+    - redis
+  backup_required: true
+
+dependencies:
+  - ingress-nginx
+  - monitoring
+  - observability
+
+criticality: medium
+rebuild_time_estimate: "30–60 minutes"
+
+owners:
+  - dustin

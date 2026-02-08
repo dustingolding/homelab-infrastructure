@@ -1,9 +1,7 @@
-# Kubernetes Manifests
+# Kubernetes Manifests (Deprecated)
 
-Place Kubernetes manifests here, organized by purpose (namespaces, apps, backups, rbac, etc.).
+This folder is deprecated. Manifests are now organized under `namespaces/` and `cluster-scope/` to make namespaces first-class.
 
-Guidelines:
-- Keep manifests small and modular.
-- Prefer one resource per file when practical.
-- Use `kustomize` or Helm for templating; store generated manifests in a separate directory if needed.
-- Don't store secrets in plaintext; use sealed-secrets, SOPS, or external secret controllers.
+See:
+- `namespaces/README.md`
+- `cluster-scope/README.md`

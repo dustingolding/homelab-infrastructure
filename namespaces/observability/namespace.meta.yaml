@@ -1,0 +1,23 @@
+namespace: observability
+purpose: Logging and telemetry pipelines for cluster services.
+
+exposure:
+  type: internal
+  ingress: nginx
+  domains: []
+
+data:
+  persistence: false
+  components:
+    - alloy
+  backup_required: false
+
+dependencies:
+  - ingress-nginx
+  - monitoring
+
+criticality: medium
+rebuild_time_estimate: "15–30 minutes"
+
+owners:
+  - dustin

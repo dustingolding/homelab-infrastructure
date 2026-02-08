@@ -1,0 +1,16 @@
+- release: alloy
+  namespace: monitoring
+  chart: alloy-1.5.3
+  appVersion: v1.12.2
+- release: grafana
+  namespace: monitoring
+  chart: grafana-10.5.15
+  appVersion: 12.3.1
+- release: loki
+  namespace: monitoring
+  chart: loki-6.51.0
+  appVersion: 3.6.4
+- release: prometheus
+  namespace: monitoring
+  chart: kube-prometheus-stack-81.5.0
+  appVersion: v0.88.1

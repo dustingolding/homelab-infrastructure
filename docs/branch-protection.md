@@ -15,6 +15,9 @@ This repo assumes strict branch protection on `main`.
 ## Optional (Decide Later)
 - Require signed commits: On
 - Require linear history: On
+
+## Signing Method
+- SSH signing (ed25519)
 - Require code owners: On (if `CODEOWNERS` exists)
 
 ## Required Status Checks

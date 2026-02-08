@@ -1,0 +1,61 @@
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/instance
+            operator: In
+            values:
+            - wordpress
+        topologyKey: kubernetes.io/hostname
+      weight: 100
+allowEmptyPassword: false
+existingSecret: wordpress
+externalDatabase:
+  database: wordpress
+  existingSecret: mariadb
+  host: mariadb.cms.svc.cluster.local
+  password: <<REDACTED>>
+  port: 3306
+  user: dustin
+mariadb:
+  enabled: false
+nodeSelector:
+  node-role.algoera: wordpress
+persistence:
+  enabled: true
+  size: 20Gi
+replicaCount: 1
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1024Mi
+  requests:
+    cpu: 300m
+    memory: 512Mi
+service:
+  type: ClusterIP
+wordpressEmail: dusting00@gmail.com
+wordpressExtraConfigContent: 'define(''WP_REDIS_HOST'', ''redis-master.cms.svc.cluster.local'');
+
+  define(''WP_REDIS_PORT'', 6379);
+
+  define(''WP_REDIS_TIMEOUT'', 1);
+
+  define(''WP_REDIS_READ_TIMEOUT'', 1);
+
+  define(''WP_CACHE'', true);
+
+  define(''DISABLE_WP_CRON'', true);
+
+  define(''WP_POST_REVISIONS'', 5);
+
+  define(''AUTOSAVE_INTERVAL'', 120);
+
+  define(''EMPTY_TRASH_DAYS'', 7);
+
+  '
+wordpressPassword: <<REDACTED>>
+wordpressPlugins: redis-cache
+wordpressUsername: dusting00

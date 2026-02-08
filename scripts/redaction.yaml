@@ -1,0 +1,17 @@
+# Keys matching deny_patterns will be redacted unless explicitly allowed.
+allow_keys:
+  - allowEmptyPassword
+  - existingSecret
+  - secretName
+  - secretRef
+  - secretKeyRef
+  - secret
+
+deny_patterns:
+  - password
+  - passwd
+  - token
+  - api[_-]?key
+  - access[_-]?key
+  - private[_-]?key
+  - client[_-]?secret

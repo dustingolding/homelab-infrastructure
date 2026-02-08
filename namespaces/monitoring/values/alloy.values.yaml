@@ -1,0 +1,17 @@
+alloy:
+  configMap:
+    content: "logging {\n  level = \"info\"\n}\n\ndiscovery.kubernetes \"pods\" {\n\
+      \  role = \"pod\"\n}\n\nloki.source.kubernetes \"pods\" {\n  targets    = discovery.kubernetes.pods.targets\n\
+      \  forward_to = [loki.write.default.receiver]\n}\n\nloki.write \"default\" {\n\
+      \  endpoint {\n    url = \"http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push\"\
+      \n  }\n}\n"
+    create: true
+controller:
+  type: daemonset
+resources:
+  limits:
+    cpu: 300m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

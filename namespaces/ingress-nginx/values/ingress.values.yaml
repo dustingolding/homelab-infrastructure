@@ -1,0 +1,7 @@
+controller:
+  nodeSelector:
+    kubernetes.io/hostname: k3s-w1
+  service:
+    nodePorts:
+      http: 30080
+    type: NodePort

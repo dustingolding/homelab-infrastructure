@@ -1,6 +1,8 @@
 name: validate-live-cluster
 
-on: []
+on:
+  workflow_dispatch:
+  pull_request:
 
 jobs:
   live-cluster-diff:

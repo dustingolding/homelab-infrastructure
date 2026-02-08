@@ -1,12 +1,20 @@
 # Ingress-NGINX Namespace
 
 ## Overview (Manual)
-This namespace runs the ingress-nginx controller that fronts HTTP/S traffic for the cluster.
+This namespace provides the cluster-wide Ingress controller based on ingress-nginx.
 
-It is the primary ingress path for public and internal services and must stay highly available.
+All external HTTP/S traffic into the cluster flows through this component before being routed to application namespaces.
 
 ## Access (Manual)
-Ingress is accessed through the cluster’s edge IP(s) and DNS records. Admin access is via Kubernetes.
+The ingress controller does not expose a user interface.
+
+Traffic enters the cluster via the LoadBalancer services created by ingress-nginx and is routed to applications based on Ingress resources.
+
+Ingress status can be inspected with:
+```
+kubectl -n ingress-nginx get svc
+kubectl -n ingress-nginx get pods
+```
 
 Upgrade example:
 Upgrade order:
@@ -36,8 +44,8 @@ Rebuild requires:
 Metadata:
 - namespace: ingress-nginx
 - purpose: Ingress controller for cluster HTTP/S routing.
-- exposure.type: public
-- exposure.ingress: nginx
+- exposure.type: internal
+- exposure.ingress: self
 - exposure.domains: none
 - data.persistence: false
 - data.components: ingress-nginx

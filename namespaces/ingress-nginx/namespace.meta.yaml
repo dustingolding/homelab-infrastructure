@@ -2,8 +2,8 @@ namespace: ingress-nginx
 purpose: Ingress controller for cluster HTTP/S routing.
 
 exposure:
-  type: public
-  ingress: nginx
+  type: internal
+  ingress: self
   domains: []
 
 data:

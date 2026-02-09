@@ -1,0 +1,25 @@
+namespace: recipelab
+purpose: Local-network RecipeLab application for recipe ingestion, search, and AI-assisted cooking workflows.
+
+exposure:
+  type: internal
+  ingress: traefik
+  domains:
+    - recipelab.homelab.local
+
+data:
+  persistence: true
+  components:
+    - postgres
+    - redis
+  backup_required: true
+
+dependencies:
+  - monitoring
+  - observability
+
+criticality: medium
+rebuild_time_estimate: "30–60 minutes"
+
+owners:
+  - dustin

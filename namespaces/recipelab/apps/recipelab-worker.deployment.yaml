@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipelab-worker
+  namespace: recipelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipelab-worker
+  template:
+    metadata:
+      labels:
+        app: recipelab-worker
+    spec:
+      nodeSelector:
+        node.platform: amd64
+      containers:
+      - name: worker
+        image: recipelab-worker:0.1.0
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: recipelab-config
+        - secretRef:
+            name: recipelab-secrets
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 1Gi

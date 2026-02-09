@@ -1,5 +1,7 @@
 adminPassword: <<REDACTED>>
 adminUser: admin
+nodeSelector:
+  node.platform: amd64
 resources:
   limits:
     cpu: 500m

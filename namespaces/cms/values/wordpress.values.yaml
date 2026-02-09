@@ -23,6 +23,7 @@ mariadb:
   enabled: false
 nodeSelector:
   node-role.algoera: wordpress
+  node.platform: amd64
 persistence:
   enabled: true
   size: 20Gi

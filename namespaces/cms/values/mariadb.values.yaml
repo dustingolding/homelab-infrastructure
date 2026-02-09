@@ -4,6 +4,10 @@ auth:
   password: <<REDACTED>>
   rootPassword: <<REDACTED>>
   username: dustin
+nodeSelector:
+  node:
+    platform: amd64
+  node.platform: amd64
 primary:
   configuration: '[mysqld]
 
@@ -35,6 +39,7 @@ primary:
     socket=/opt/bitnami/mariadb/tmp/mysql.sock'
   nodeSelector:
     node-role.algoera: mariadb
+    node.platform: amd64
   persistence:
     enabled: true
     size: 20Gi

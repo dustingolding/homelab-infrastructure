@@ -26,6 +26,10 @@ loki:
       shared_store: filesystem
     filesystem:
       directory: /var/loki/chunks
+nodeSelector:
+  node:
+    platform: amd64
+  node.platform: amd64
 read:
   replicas: 0
 singleBinary:

@@ -2,12 +2,17 @@ alertmanager:
   enabled: false
 grafana:
   enabled: false
+kubeStateMetrics:
+  image:
+    tag: v2.18.0
 nodeSelector:
   node:
     platform: amd64
   node.platform: amd64
 prometheus:
   prometheusSpec:
+    image:
+      tag: v3.9.1
     resources:
       limits:
         cpu: 1000m
@@ -16,3 +21,6 @@ prometheus:
         cpu: 500m
         memory: 1Gi
     retention: 15d
+prometheusOperator:
+  image:
+    tag: v0.88.1

@@ -1,5 +1,7 @@
 auth:
   enabled: false
+image:
+  tag: 8.4.0
 master:
   disableCommands: []
   persistence:

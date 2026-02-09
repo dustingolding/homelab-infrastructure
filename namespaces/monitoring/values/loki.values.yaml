@@ -5,6 +5,8 @@ loki:
   auth_enabled: false
   commonConfig:
     replication_factor: 1
+  image:
+    tag: 3.6.4
   limits_config:
     allow_structured_metadata: false
     reject_old_samples: false

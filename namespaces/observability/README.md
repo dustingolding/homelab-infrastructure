@@ -57,17 +57,18 @@ Metadata:
 - rebuild_time_estimate: 15–30 minutes
 - owners: dustin
 Deployed services:
-- none
+- DaemonSet/alloy
 Helm values:
 - none
 Helm images (values):
 - none
 Images & versions:
-- none
+- grafana/alloy:latest
 Ports / ingress:
 - none
 Resources:
 - none
 Dependencies:
-- none
+- ConfigMap/alloy-config
+- ServiceAccount/alloy
 <!-- AUTO-GENERATED:END -->

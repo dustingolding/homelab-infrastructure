@@ -1,0 +1,81 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"batch/v1","kind":"CronJob","metadata":{"annotations":{},"name":"mariadb-restore-test","namespace":"cms"},"spec":{"concurrencyPolicy":"Forbid","failedJobsHistoryLimit":3,"jobTemplate":{"spec":{"backoffLimit":0,"template":{"spec":{"containers":[{"command":["/bin/bash","-ec","latest_file=$(ls
+      -t /backups/db/*.sql.gz | head -n 1)\nif [ -z \"$latest_file\" ]; then\n  echo
+      \"No backup files found in /backups/db\" \u003e\u00262\n  exit 1\nfi\necho \"Using
+      backup: $latest_file\"\n\nmariadb -h mariadb.cms.svc.cluster.local -u root -p\"$MARIADB_ROOT_PASSWORD\"
+      -e \"DROP DATABASE IF EXISTS wordpress_restore_test; CREATE DATABASE wordpress_restore_test;\"\ngunzip
+      -c \"$latest_file\" | mariadb -h mariadb.cms.svc.cluster.local -u root -p\"$MARIADB_ROOT_PASSWORD\"
+      wordpress_restore_test\n\nmariadb -h mariadb.cms.svc.cluster.local -u root -p\"$MARIADB_ROOT_PASSWORD\"
+      -e \"SELECT COUNT(*) AS tables_count FROM information_schema.tables WHERE table_schema=''wordpress_restore_test'';\"\nmariadb
+      -h mariadb.cms.svc.cluster.local -u root -p\"$MARIADB_ROOT_PASSWORD\" -e \"DROP
+      DATABASE IF EXISTS wordpress_restore_test;\"\n"],"env":[{"name":"MARIADB_ROOT_PASSWORD","valueFrom":{"secretKeyRef":{"key":"mariadb-root-password","name":"mariadb"}}}],"image":"bitnami/mariadb:latest","imagePullPolicy":"IfNotPresent","name":"restore-test","volumeMounts":[{"mountPath":"/backups","name":"backups"}]}],"nodeSelector":{"kubernetes.io/hostname":"k3s-w3"},"restartPolicy":"Never","volumes":[{"name":"backups","persistentVolumeClaim":{"claimName":"cms-backups-pvc"}}]}}}},"schedule":"30
+      3 * * 0","successfulJobsHistoryLimit":1}}
+
+      '
+  creationTimestamp: '2026-02-07T17:14:46Z'
+  generation: 1
+  name: mariadb-restore-test
+  namespace: cms
+  resourceVersion: '236026'
+  uid: 5f8f56fd-03af-4afa-924c-ba8ccaf0656e
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    metadata: {}
+    spec:
+      backoffLimit: 0
+      template:
+        metadata: {}
+        spec:
+          containers:
+          - command:
+            - /bin/bash
+            - -ec
+            - "latest_file=$(ls -t /backups/db/*.sql.gz | head -n 1)\nif [ -z \"$latest_file\"\
+              \ ]; then\n  echo \"No backup files found in /backups/db\" >&2\n  exit\
+              \ 1\nfi\necho \"Using backup: $latest_file\"\n\nmariadb -h mariadb.cms.svc.cluster.local\
+              \ -u root -p\"$MARIADB_ROOT_PASSWORD\" -e \"DROP DATABASE IF EXISTS\
+              \ wordpress_restore_test; CREATE DATABASE wordpress_restore_test;\"\n\
+              gunzip -c \"$latest_file\" | mariadb -h mariadb.cms.svc.cluster.local\
+              \ -u root -p\"$MARIADB_ROOT_PASSWORD\" wordpress_restore_test\n\nmariadb\
+              \ -h mariadb.cms.svc.cluster.local -u root -p\"$MARIADB_ROOT_PASSWORD\"\
+              \ -e \"SELECT COUNT(*) AS tables_count FROM information_schema.tables\
+              \ WHERE table_schema='wordpress_restore_test';\"\nmariadb -h mariadb.cms.svc.cluster.local\
+              \ -u root -p\"$MARIADB_ROOT_PASSWORD\" -e \"DROP DATABASE IF EXISTS\
+              \ wordpress_restore_test;\"\n"
+            env:
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: mariadb-root-password
+                  name: mariadb
+            image: bitnami/mariadb:latest
+            imagePullPolicy: IfNotPresent
+            name: restore-test
+            resources: {}
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+            volumeMounts:
+            - mountPath: /backups
+              name: backups
+          dnsPolicy: ClusterFirst
+          nodeSelector:
+            kubernetes.io/hostname: k3s-w3
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+          volumes:
+          - name: backups
+            persistentVolumeClaim:
+              claimName: cms-backups-pvc
+  schedule: 30 3 * * 0
+  successfulJobsHistoryLimit: 1
+  suspend: false
+status:
+  lastScheduleTime: '2026-02-08T03:30:00Z'
+  lastSuccessfulTime: '2026-02-08T03:30:06Z'

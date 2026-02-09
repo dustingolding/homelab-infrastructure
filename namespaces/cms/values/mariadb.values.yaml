@@ -1,3 +1,6 @@
+global:
+  imagePullSecrets:
+  - dockerhub-cred
 auth:
   database: wordpress
   existingSecret: mariadb

@@ -1,6 +1,9 @@
 backend:
   replicas: 0
 deploymentMode: SingleBinary
+gateway:
+  image:
+    tag: 1.29-alpine
 loki:
   auth_enabled: false
   commonConfig:
@@ -28,12 +31,21 @@ loki:
       shared_store: filesystem
     filesystem:
       directory: /var/loki/chunks
+memcached:
+  image:
+    tag: 1.6.39-alpine
+memcachedExporter:
+  image:
+    tag: v0.15.4
 nodeSelector:
   node:
     platform: amd64
   node.platform: amd64
 read:
   replicas: 0
+sidecar:
+  image:
+    tag: 1.30.9
 singleBinary:
   replicas: 1
   resources:

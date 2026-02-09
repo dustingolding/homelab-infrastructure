@@ -5,6 +5,9 @@ grafana:
 kubeStateMetrics:
   image:
     tag: v2.18.0
+nodeExporter:
+  image:
+    tag: v1.10.2
 nodeSelector:
   node:
     platform: amd64

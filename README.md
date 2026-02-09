@@ -24,3 +24,6 @@ Branch protection guidance lives in `docs/branch-protection.md`.
 Branch protection checklist lives in `docs/branch-protection-checklist.md`.
 Scheduling intent and node labeling live in `docs/scheduling-intent.md`.
 Cluster topology lives in `docs/cluster-topology.md`.
+
+Secrets management: `docs/secrets.md`.
+Flux bootstrap: `docs/flux-bootstrap.md`.

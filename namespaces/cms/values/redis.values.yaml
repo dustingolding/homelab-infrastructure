@@ -6,6 +6,9 @@ master:
   disableCommands: []
   persistence:
     enabled: false
+metrics:
+  image:
+    tag: 1.62.0
 nodeSelector:
   node:
     platform: amd64
@@ -20,3 +23,6 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+sentinel:
+  image:
+    tag: 8.4.0

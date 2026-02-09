@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"traefik.ingress.kubernetes.io/router.entrypoints":"web"},"name":"grafana","namespace":"monitoring"},"spec":{"rules":[{"host":"grafana.homelab.local","http":{"paths":[{"backend":{"service":{"name":"grafana","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}]}}
+
+      '
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+  creationTimestamp: '2026-02-07T04:01:52Z'
+  generation: 1
+  name: grafana
+  namespace: monitoring
+  resourceVersion: '240768'
+  uid: 86d06fd7-691c-46e7-8725-edee431e5116
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: grafana.homelab.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: grafana
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.55.201
+    - ip: 192.168.55.202
+    - ip: 192.168.55.203
+    - ip: 192.168.55.204
+    - ip: 192.168.55.205

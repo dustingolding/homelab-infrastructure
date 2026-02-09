@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  annotations:
+    deprecated.daemonset.template.generation: '18'
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"apps/v1","kind":"DaemonSet","metadata":{"annotations":{},"name":"alloy","namespace":"observability"},"spec":{"selector":{"matchLabels":{"app":"alloy"}},"template":{"metadata":{"labels":{"app":"alloy"}},"spec":{"containers":[{"args":["run","/etc/alloy/alloy-config.yaml"],"image":"grafana/alloy:latest","name":"alloy","volumeMounts":[{"mountPath":"/etc/alloy","name":"config"}]}],"serviceAccountName":"alloy","volumes":[{"configMap":{"name":"alloy-config"},"name":"config"}]}}}}
+
+      '
+  creationTimestamp: '2026-02-04T13:32:15Z'
+  generation: 18
+  name: alloy
+  namespace: observability
+  resourceVersion: '241342'
+  uid: d5264343-a7a2-432c-a3a3-6f7698d9fc26
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: alloy
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: '2026-02-06T04:44:12Z'
+      labels:
+        app: alloy
+    spec:
+      containers:
+      - args:
+        - run
+        - /etc/alloy/alloy-config.yaml
+        image: grafana/alloy:latest
+        imagePullPolicy: Always
+        name: alloy
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/alloy
+          name: config
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: alloy
+      serviceAccountName: alloy
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: alloy-config
+        name: config
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+status:
+  currentNumberScheduled: 5
+  desiredNumberScheduled: 5
+  numberAvailable: 5
+  numberMisscheduled: 0
+  numberReady: 5
+  observedGeneration: 18
+  updatedNumberScheduled: 5

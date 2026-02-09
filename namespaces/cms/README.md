@@ -72,6 +72,7 @@ Deployed services:
 - CronJob/mariadb-restore-test
 - CronJob/wordpress-backup
 - CronJob/wp-cron
+- Ingress/wordpress
 - Job/mariadb-restore-test
 Helm values:
 - values/mariadb.values.yaml
@@ -84,7 +85,7 @@ Images & versions:
 - bitnami/mariadb:latest
 - curlimages/curl:8.7.1
 Ports / ingress:
-- none
+- Ingress/wordpress: cms.thealgoera.com/
 Resources:
 - none
 Dependencies:

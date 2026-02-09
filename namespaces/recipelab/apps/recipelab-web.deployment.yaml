@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipelab-web
+  namespace: recipelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipelab-web
+  template:
+    metadata:
+      labels:
+        app: recipelab-web
+    spec:
+      nodeSelector:
+        node.platform: amd64
+      containers:
+      - name: web
+        image: recipelab-web:0.1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi

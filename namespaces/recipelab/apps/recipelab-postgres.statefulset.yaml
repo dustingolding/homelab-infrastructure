@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: recipelab-postgres
+  namespace: recipelab
+spec:
+  serviceName: recipelab-postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipelab-postgres
+  template:
+    metadata:
+      labels:
+        app: recipelab-postgres
+    spec:
+      nodeSelector:
+        node.platform: amd64
+      containers:
+      - name: postgres
+        image: pgvector/pgvector:pg16
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: recipelab-secrets
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: recipelab-secrets
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: recipelab-secrets
+              key: POSTGRES_DB
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: recipelab-postgres-pvc

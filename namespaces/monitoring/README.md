@@ -71,7 +71,8 @@ Metadata:
 - rebuild_time_estimate: 30–60 minutes
 - owners: dustin
 Deployed services:
-- none
+- Ingress/grafana
+- Service/prometheus-operated
 Helm values:
 - values/alloy.values.yaml
 - values/grafana.values.yaml
@@ -82,7 +83,8 @@ Helm images (values):
 Images & versions:
 - none
 Ports / ingress:
-- none
+- Ingress/grafana: grafana.homelab.local/
+- Service/prometheus-operated: 9090/TCP -> http-web
 Resources:
 - none
 Dependencies:

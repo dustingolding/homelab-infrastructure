@@ -11,6 +11,8 @@ affinity:
         topologyKey: kubernetes.io/hostname
       weight: 100
 allowEmptyPassword: false
+apache:
+  tag: 2.4.62
 existingSecret: wordpress
 externalDatabase:
   database: wordpress

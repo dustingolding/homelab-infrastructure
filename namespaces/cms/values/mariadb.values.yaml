@@ -6,6 +6,9 @@ auth:
   username: dustin
 image:
   tag: 12.1.2
+metrics:
+  image:
+    tag: 0.16.0
 nodeSelector:
   node:
     platform: amd64

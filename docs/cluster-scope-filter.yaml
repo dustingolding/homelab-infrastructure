@@ -1,0 +1,15 @@
+# Optional filter to reduce cluster-scope exports.
+# If present, use it to keep only selected resources.
+#
+# include_namespaces:
+#   - cms
+#   - monitoring
+#   - observability
+#   - ingress-nginx
+#
+# include_crds:
+#   - prometheuses.monitoring.coreos.com
+#   - servicemonitors.monitoring.coreos.com
+#   - podmonitors.monitoring.coreos.com
+#   - alertmanagers.monitoring.coreos.com
+#   - prometheusrules.monitoring.coreos.com

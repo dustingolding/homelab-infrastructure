@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipelab-redis
+  namespace: recipelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipelab-redis
+  template:
+    metadata:
+      labels:
+        app: recipelab-redis
+    spec:
+      nodeSelector:
+        node.platform: amd64
+      containers:
+      - name: redis
+        image: redis:7.2-alpine
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-c"]
+        args:
+          - exec redis-server --appendonly no --requirepass "$REDIS_PASSWORD"
+        env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: recipelab-secrets
+              key: REDIS_PASSWORD
+        ports:
+        - containerPort: 6379
+          name: redis
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi

@@ -56,6 +56,7 @@ Metadata:
 - rebuild_time_estimate: 30–60 minutes
 - owners: dustin
 Deployed services:
+- CronJob/recipelab-postgres-backup
 - Deployment/recipelab-api
 - Deployment/recipelab-redis
 - Deployment/recipelab-web
@@ -72,6 +73,7 @@ Helm images (values):
 - none
 Images & versions:
 - pgvector/pgvector:pg16
+- postgres:16-alpine
 - recipelab-api:0.1.0
 - recipelab-web:0.1.0
 - recipelab-worker:0.1.0
@@ -91,6 +93,7 @@ Resources:
 - worker: requests={'cpu': '200m', 'memory': '256Mi'}, limits={'cpu': '1000m', 'memory': '1Gi'}
 Dependencies:
 - ConfigMap/recipelab-config
+- PVC/recipelab-backups-pvc
 - PVC/recipelab-postgres-pvc
 - Secret/recipelab-secrets
 <!-- AUTO-GENERATED:END -->

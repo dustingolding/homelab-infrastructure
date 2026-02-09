@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: recipelab-postgres-backup
+  namespace: recipelab
+spec:
+  schedule: "0 3 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: postgres-backup
+            image: postgres:16-alpine
+            env:
+            - name: POSTGRES_HOST
+              value: recipelab-postgres.recipelab.svc.cluster.local
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: recipelab-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: recipelab-secrets
+                  key: POSTGRES_USER
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: recipelab-secrets
+                  key: POSTGRES_PASSWORD
+            command:
+            - /bin/sh
+            - -ec
+            - |
+              TS=$(date +%F_%H%M)
+              OUTDIR=/backups/db
+              mkdir -p "${OUTDIR}"
+              pg_dump -h "${POSTGRES_HOST}" -U "${POSTGRES_USER}" "${POSTGRES_DB}" \
+                | gzip > "${OUTDIR}/recipelab_${TS}.sql.gz"
+              find "${OUTDIR}" -type f -mtime +14 -name "*.sql.gz" -delete
+            volumeMounts:
+            - name: backups
+              mountPath: /backups
+          volumes:
+          - name: backups
+            persistentVolumeClaim:
+              claimName: recipelab-backups-pvc

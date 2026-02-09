@@ -4,6 +4,10 @@
 - Postgres stores recipes, embeddings, preferences, and job records.
 - Use a consistent backup strategy aligned with cluster conventions.
 
+## CronJob
+- `namespaces/recipelab/backups/recipelab-postgres-backup.cronjob.yaml` runs nightly backups.
+- Backups are stored in `recipelab-backups-pvc`.
+
 ## Suggested Backup Flow
 1. Create a logical backup with `pg_dump`.
 2. Store backups in the existing backups system (or a dedicated PVC if needed).

@@ -2,6 +2,8 @@ import os
 import uuid
 from typing import Any
 
+import json
+
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import PlainTextResponse
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, Gauge, generate_latest
@@ -147,6 +149,65 @@ def search_recipes(q: str, limit: int = 5) -> dict[str, Any]:
         {"recipe_id": r[0], "title": r[1], "source": r[2], "chunk": r[3]} for r in rows
     ]
     return {"query": q, "results": results}
+
+
+@app.post("/preferences")
+def save_preferences(user_id: str = Form("local"), rules: str = Form(...)) -> dict[str, Any]:
+    try:
+        parsed = json.loads(rules)
+        if not isinstance(parsed, dict):
+            parsed = {"rules": parsed}
+    except json.JSONDecodeError:
+        parsed = {"rules": rules}
+
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "INSERT INTO user_preferences (id, user_id, rules) VALUES (%s, %s, %s)",
+                (str(uuid.uuid4()), user_id, json.dumps(parsed)),
+            )
+        conn.commit()
+    return {"status": "saved"}
+
+
+@app.get("/preferences")
+def get_preferences(user_id: str = "local") -> dict[str, Any]:
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT rules FROM user_preferences WHERE user_id = %s ORDER BY created_at DESC LIMIT 1",
+                (user_id,),
+            )
+            row = cur.fetchone()
+    return {"user_id": user_id, "rules": row[0] if row else {}}
+
+
+@app.post("/pantry")
+def save_pantry(user_id: str = Form("local"), items: str = Form(...)) -> dict[str, Any]:
+    entries = [i.strip() for i in items.splitlines() if i.strip()]
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute("DELETE FROM pantry_items WHERE user_id = %s", (user_id,))
+            for item in entries:
+                cur.execute(
+                    "INSERT INTO pantry_items (id, user_id, item) VALUES (%s, %s, %s)",
+                    (str(uuid.uuid4()), user_id, item),
+                )
+        conn.commit()
+    return {"status": "saved", "count": len(entries)}
+
+
+@app.get("/pantry")
+def get_pantry(user_id: str = "local") -> dict[str, Any]:
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT item, quantity FROM pantry_items WHERE user_id = %s ORDER BY created_at DESC",
+                (user_id,),
+            )
+            rows = cur.fetchall()
+    items = [{"item": r[0], "quantity": r[1]} for r in rows]
+    return {"user_id": user_id, "items": items}
 
 
 @app.post("/chat")

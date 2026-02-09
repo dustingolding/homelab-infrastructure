@@ -66,13 +66,31 @@ chatForm.addEventListener("submit", async (event) => {
 const prefsSave = document.getElementById("prefs-save");
 prefsSave.addEventListener("click", () => {
   const text = document.getElementById("prefs-input").value;
-  localStorage.setItem("recipelab-preferences", text);
-  document.getElementById("prefs-status").textContent = "Saved locally.";
+  const formData = new FormData();
+  formData.append("user_id", getUsername());
+  formData.append("rules", text);
+  fetch("/api/preferences", { method: "POST", body: formData })
+    .then((resp) => resp.json())
+    .then(() => {
+      document.getElementById("prefs-status").textContent = "Saved.";
+    })
+    .catch(() => {
+      document.getElementById("prefs-status").textContent = "Save failed.";
+    });
 });
 
 const pantrySave = document.getElementById("pantry-save");
 pantrySave.addEventListener("click", () => {
   const text = document.getElementById("pantry-input").value;
-  localStorage.setItem("recipelab-pantry", text);
-  document.getElementById("pantry-status").textContent = "Saved locally.";
+  const formData = new FormData();
+  formData.append("user_id", getUsername());
+  formData.append("items", text);
+  fetch("/api/pantry", { method: "POST", body: formData })
+    .then((resp) => resp.json())
+    .then(() => {
+      document.getElementById("pantry-status").textContent = "Saved.";
+    })
+    .catch(() => {
+      document.getElementById("pantry-status").textContent = "Save failed.";
+    });
 });

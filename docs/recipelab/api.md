@@ -29,9 +29,23 @@ Base URL:
   - Form fields: `message` (required), `user_id` (optional), `layers` (optional, comma-separated)
   - Enforces feature layer gating based on `RECIPES_FEATURE_*` flags.
 
+## Preferences
+- `POST /preferences`
+  - Form fields: `user_id` (optional), `rules` (required, JSON or plain text)
+- `GET /preferences?user_id=...`
+  - Returns latest stored preferences for a user.
+
+## Pantry
+- `POST /pantry`
+  - Form fields: `user_id` (optional), `items` (required, newline-separated)
+- `GET /pantry?user_id=...`
+  - Returns stored pantry items for a user.
+
 ## Examples
 ```bash
 curl -fsS http://recipelab.homelab.local/api/healthz
 curl -fsS -X POST -F "content=1 cup flour" http://recipelab.homelab.local/api/recipes/import
 curl -fsS "http://recipelab.homelab.local/api/recipes/search?q=flour"
+curl -fsS -X POST -F "rules={\"no_peanuts\":true}" http://recipelab.homelab.local/api/preferences
+curl -fsS -X POST -F $'items=rice\\nbeans\\nolive oil' http://recipelab.homelab.local/api/pantry
 ```

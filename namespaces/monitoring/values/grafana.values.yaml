@@ -1,5 +1,7 @@
 adminPassword: <<REDACTED>>
 adminUser: admin
+image:
+  tag: 12.3.1
 nodeSelector:
   node.platform: amd64
 resources:

@@ -1,0 +1,149 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.3
+  name: etcdsnapshotfiles.k3s.cattle.io
+spec:
+  conversion:
+    strategy: None
+  group: k3s.cattle.io
+  names:
+    kind: ETCDSnapshotFile
+    listKind: ETCDSnapshotFileList
+    plural: etcdsnapshotfiles
+    singular: etcdsnapshotfile
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.snapshotName
+      name: SnapshotName
+      type: string
+    - jsonPath: .spec.nodeName
+      name: Node
+      type: string
+    - jsonPath: .spec.location
+      name: Location
+      type: string
+    - jsonPath: .status.size
+      name: Size
+      type: string
+    - jsonPath: .status.creationTime
+      name: CreationTime
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: ETCDSnapshot tracks a point-in-time snapshot of the etcd datastore.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object.
+
+              Servers should convert recognized schemas to the latest internal value,
+              and
+
+              may reject unrecognized values.
+
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents.
+
+              Servers may infer this from the endpoint the client submits requests
+              to.
+
+              Cannot be updated.
+
+              In CamelCase.
+
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec defines properties of an etcd snapshot file
+            properties:
+              location:
+                description: Location is the absolute file:// or s3:// URI address
+                  of the snapshot.
+                type: string
+              metadata:
+                additionalProperties:
+                  type: string
+                description: 'Metadata contains point-in-time snapshot of the contents
+                  of the
+
+                  k3s-etcd-snapshot-extra-metadata ConfigMap''s data field, at the
+                  time the
+
+                  snapshot was taken. This is intended to contain data about cluster
+                  state
+
+                  that may be important for an external system to have available when
+                  restoring
+
+                  the snapshot.'
+                type: object
+              nodeName:
+                description: NodeName contains the name of the node that took the
+                  snapshot.
+                type: string
+              s3:
+                description: 'S3 contains extra metadata about the S3 storage system
+                  holding the
+
+                  snapshot. This is guaranteed to be set for all snapshots uploaded
+                  to S3.
+
+                  If not specified, the snapshot was not uploaded to S3.'
+                properties:
+                  bucket:
+                    description: Bucket is the bucket holding the snapshot
+                    type: string
+                  bucketLookup:
+                    description: BucketLookup is the bucket lookup type, one of 'auto',
+                      'dns', 'path'. Default if empty is 'auto'.
+                    type: string
+                  endpoint:
+                    description: Endpoint is the host or host:port of the S3 service
+                    type: string
+                  endpointCA:
+                    description: EndpointCA is the path on disk to the S3 service's
+                      trusted CA list. Leave empty to use the OS CA bundle.
+                    type: string
+                  insecure:
+                    description: Insecure is true if the S3 service uses HTTP instead
+                      of HTTPS
+                    type: boolean
+                  prefix:
+                    description: Prefix is the prefix in which the snapshot file is
+                      stored.
+                    type: string
+                  region:
+                    description: Region is the region of the S3 service
+                    type: string
+                  skipSSLVerify:
+                    description: SkipSSLVerify is true if TLS certificate verification
+                      is disabled
+                    type: boolean
+                type: object
+              snapshotName:
+                description: 'SnapshotName contains the base name of the snapshot
+                  file. CLI actions that act
+
+                  on snapshots stored locally or within a pre-configured S3 bucket
+                  and
+
+                  prefix usually take the snapshot name as their argument.'
+                type: string
+            required:
+            - location
+            - nodeName
+            - snapshotName
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}

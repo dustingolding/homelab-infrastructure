@@ -4,6 +4,8 @@ auth:
   password: <<REDACTED>>
   rootPassword: <<REDACTED>>
   username: dustin
+image:
+  tag: 12.1.2
 nodeSelector:
   node:
     platform: amd64

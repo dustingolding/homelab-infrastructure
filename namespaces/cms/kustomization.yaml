@@ -12,5 +12,3 @@ resources:
   - backups/wordpress-backup-cronjob.yaml
   - backups/wp-cronjob.yaml
   - network/wordpress.ingress.yaml
-  - storage/cms-backups-pvc.persistentvolumeclaim.yaml
-  - storage/cms-backups-wp-pvc.persistentvolumeclaim.yaml

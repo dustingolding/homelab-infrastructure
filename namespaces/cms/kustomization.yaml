@@ -1,6 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - apps/mariadb.secret.sops.yaml
+  - apps/mariadb.service.yaml
+  - apps/mariadb.statefulset.yaml
+  - apps/redis.deployment.yaml
+  - apps/redis.service.yaml
+  - apps/wordpress.secret.sops.yaml
+  - apps/wordpress.service.yaml
+  - apps/wordpress.deployment.yaml
   - backups/bind-wp-backups.yaml
   - backups/cms-backups-pvc.yaml
   - backups/cms-backups-wp-pvc.yaml

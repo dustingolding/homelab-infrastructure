@@ -36,6 +36,10 @@ Rebuild requires:
 - Re-applying manifests
 - Restoring database and uploads
 
+## Migration (Manual)
+Planned migration to Docker Official images (WordPress/MariaDB/Redis) is documented in:
+`docs/cms-official-images-migration.md`
+
 ## Scheduling Notes (Manual)
 CMS workloads are intended to run on amd64 nodes only.
 

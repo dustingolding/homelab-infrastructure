@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  namespace: cms
+  labels:
+    app: wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      nodeSelector:
+        node-role.algoera: wordpress
+        node.platform: amd64
+      containers:
+      - name: wordpress
+        image: wordpress:6.4.3-php8.2-apache
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          name: http
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: mariadb.cms.svc.cluster.local
+        - name: WORDPRESS_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: mariadb
+              key: mariadb-database
+        - name: WORDPRESS_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mariadb
+              key: mariadb-user
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb
+              key: mariadb-password
+        - name: WORDPRESS_CONFIG_EXTRA
+          value: |
+            define('WP_REDIS_HOST', 'redis-master.cms.svc.cluster.local');
+            define('WP_REDIS_PORT', 6379);
+            define('WP_REDIS_TIMEOUT', 1);
+            define('WP_REDIS_READ_TIMEOUT', 1);
+            define('WP_CACHE', true);
+            define('DISABLE_WP_CRON', true);
+            define('WP_POST_REVISIONS', 5);
+            define('AUTOSAVE_INTERVAL', 120);
+            define('EMPTY_TRASH_DAYS', 7);
+        volumeMounts:
+        - name: wordpress-data
+          mountPath: /var/www/html
+        resources:
+          requests:
+            cpu: 300m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 1024Mi
+      volumes:
+      - name: wordpress-data
+        persistentVolumeClaim:
+          claimName: wordpress

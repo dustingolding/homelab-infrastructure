@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RecipeLab</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">RL</span>
+        <div>
+          <div class="title">RecipeLab</div>
+          <div class="subtitle">Local Recipe AI Platform</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <button data-screen="login" class="nav-btn">Login</button>
+        <button data-screen="library" class="nav-btn active">Library</button>
+        <button data-screen="chat" class="nav-btn">Chat</button>
+        <button data-screen="preferences" class="nav-btn">Preferences</button>
+        <button data-screen="pantry" class="nav-btn">Pantry</button>
+        <button data-screen="admin" class="nav-btn">Admin</button>
+      </nav>
+    </header>
+
+    <main class="content">
+      <section id="login" class="screen">
+        <h2>Login</h2>
+        <p>Local-only login stub. Store a username for personalization.</p>
+        <form id="login-form">
+          <label>
+            Username
+            <input type="text" name="username" required />
+          </label>
+          <button type="submit">Save</button>
+        </form>
+        <div id="login-status" class="status"></div>
+      </section>
+
+      <section id="library" class="screen active">
+        <h2>Recipe Library</h2>
+        <form id="upload-form" class="panel">
+          <label>
+            Recipe file
+            <input type="file" name="file" />
+          </label>
+          <label>
+            Or paste content
+            <textarea name="content" rows="5" placeholder="Paste recipe text"></textarea>
+          </label>
+          <label>
+            Or import from URL
+            <input type="url" name="url" placeholder="https://example.com/recipe" />
+          </label>
+          <label>
+            Title
+            <input type="text" name="title" placeholder="Recipe title" />
+          </label>
+          <button type="submit">Import</button>
+          <div id="upload-status" class="status"></div>
+        </form>
+
+        <form id="search-form" class="panel">
+          <label>
+            Search
+            <input type="text" name="query" placeholder="Find recipes" required />
+          </label>
+          <button type="submit">Search</button>
+        </form>
+        <div id="search-results" class="results"></div>
+      </section>
+
+      <section id="chat" class="screen">
+        <h2>Chat</h2>
+        <form id="chat-form" class="panel">
+          <label>
+            Message
+            <textarea name="message" rows="4" placeholder="Ask about substitutions, planning, or cooking tips"></textarea>
+          </label>
+          <label>
+            Optional layers (comma-separated)
+            <input type="text" name="layers" placeholder="pantry, nutrition" />
+          </label>
+          <button type="submit">Send</button>
+        </form>
+        <div id="chat-response" class="results"></div>
+      </section>
+
+      <section id="preferences" class="screen">
+        <h2>Preferences / House Rules</h2>
+        <p>Define dietary preferences and kitchen rules. Stored locally for now.</p>
+        <textarea id="prefs-input" rows="6" placeholder="No peanuts. Prefer low sodium."></textarea>
+        <button id="prefs-save">Save</button>
+        <div id="prefs-status" class="status"></div>
+      </section>
+
+      <section id="pantry" class="screen">
+        <h2>Pantry</h2>
+        <p>Optional layer. Track pantry items to influence substitutions.</p>
+        <textarea id="pantry-input" rows="6" placeholder="Rice, beans, olive oil"></textarea>
+        <button id="pantry-save">Save</button>
+        <div id="pantry-status" class="status"></div>
+      </section>
+
+      <section id="admin" class="screen">
+        <h2>Admin Settings</h2>
+        <ul>
+          <li>OpenAI key: stored in Kubernetes secret</li>
+          <li>Models: configured via ConfigMap</li>
+          <li>Database: Postgres + pgvector</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

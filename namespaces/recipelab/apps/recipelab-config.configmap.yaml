@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: recipelab-config
+  namespace: recipelab
+data:
+  APP_ENV: "production"
+  LOG_LEVEL: "info"
+  OPENAI_EMBED_MODEL: "text-embedding-3-small"
+  OPENAI_CHAT_MODEL: "gpt-4o-mini"
+  OPENAI_REQUEST_TIMEOUT_SECS: "20"
+  OPENAI_MAX_RETRIES: "3"
+  RECIPES_EMBEDDING_DIM: "1536"
+  RECIPES_CHUNK_SIZE: "800"
+  RECIPES_CHUNK_OVERLAP: "100"
+  RECIPES_FEATURE_PANTRY: "false"
+  RECIPES_FEATURE_MEAL_PLANNING: "false"
+  RECIPES_FEATURE_NUTRITION: "false"
+  RECIPES_FEATURE_TEACHING: "false"
+  RECIPES_FEATURE_CREATIVE_REMIX: "false"
+  RECIPES_FEATURE_SHOPPING_LISTS: "false"
+  RECIPES_JOB_QUEUE: "recipelab:jobs"
+  POSTGRES_HOST: "recipelab-postgres"
+  POSTGRES_PORT: "5432"
+  REDIS_HOST: "recipelab-redis"
+  REDIS_PORT: "6379"

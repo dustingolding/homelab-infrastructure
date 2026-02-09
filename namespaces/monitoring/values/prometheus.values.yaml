@@ -2,6 +2,10 @@ alertmanager:
   enabled: false
 grafana:
   enabled: false
+nodeSelector:
+  node:
+    platform: amd64
+  node.platform: amd64
 prometheus:
   prometheusSpec:
     resources:

@@ -4,6 +4,10 @@ master:
   disableCommands: []
   persistence:
     enabled: false
+nodeSelector:
+  node:
+    platform: amd64
+  node.platform: amd64
 replica:
   disableCommands: []
   replicaCount: 0

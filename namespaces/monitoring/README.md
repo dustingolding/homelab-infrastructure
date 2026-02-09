@@ -40,6 +40,18 @@ Rebuild requires:
 - Re-applying manifests
 - Restoring persistent data if required
 
+## Scheduling Notes (Manual)
+Monitoring workloads are intended to run on amd64 nodes.
+
+Preferred nodes:
+- Proxmox VMs
+- Bare metal servers
+
+Raspberry Pi nodes are allowed only for log shippers.
+
+Node labels used:
+- node.platform=amd64
+
 ---
 
 ## 🔁 Generated Section (DO NOT EDIT BELOW)

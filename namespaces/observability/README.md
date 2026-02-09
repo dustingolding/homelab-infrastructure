@@ -35,6 +35,9 @@ Rebuild requires:
 - Re-applying manifests
 - Verifying telemetry pipelines
 
+## Scheduling Notes (Manual)
+Observability agents run on every node (DaemonSet).
+
 ---
 
 ## 🔁 Generated Section (DO NOT EDIT BELOW)

@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - backups/bind-wp-backups.yaml
+  - backups/cms-backups-pvc.yaml
+  - backups/cms-backups-wp-pvc.yaml
+  - backups/list-db-backups.yaml
+  - backups/list-wp-backups.yaml
+  - backups/mariadb-backup-cronjob.yaml
+  - backups/mariadb-restore-test-cronjob.yaml
+  - backups/mariadb-restore-test-job.yaml
+  - backups/wordpress-backup-cronjob.yaml
+  - backups/wp-cronjob.yaml
+  - network/wordpress.ingress.yaml
+  - storage/cms-backups-pvc.persistentvolumeclaim.yaml
+  - storage/cms-backups-wp-pvc.persistentvolumeclaim.yaml

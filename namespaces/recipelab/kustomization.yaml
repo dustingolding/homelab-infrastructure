@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - apps/recipelab-api.deployment.yaml
+  - apps/recipelab-api.service.yaml
+  - apps/recipelab-config.configmap.yaml
+  - apps/recipelab-postgres.service.yaml
+  - apps/recipelab-postgres.statefulset.yaml
+  - apps/recipelab-redis.deployment.yaml
+  - apps/recipelab-redis.service.yaml
+  - apps/recipelab-secrets.secret.sops.yaml
+  - apps/recipelab-web.deployment.yaml
+  - apps/recipelab-web.service.yaml
+  - apps/recipelab-worker.deployment.yaml
+  - network/recipelab.ingress.yaml
+  - storage/recipelab-postgres.persistentvolumeclaim.yaml

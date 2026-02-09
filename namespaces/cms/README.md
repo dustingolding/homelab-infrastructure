@@ -76,8 +76,14 @@ Deployed services:
 - CronJob/mariadb-restore-test
 - CronJob/wordpress-backup
 - CronJob/wp-cron
+- Deployment/redis-master
+- Deployment/wordpress
 - Ingress/wordpress
 - Job/mariadb-restore-test
+- Service/mariadb
+- Service/redis-master
+- Service/wordpress
+- StatefulSet/mariadb
 Helm values:
 - values/mariadb.values.yaml
 - values/redis.values.yaml
@@ -88,13 +94,22 @@ Images & versions:
 - alpine:3.20
 - bitnami/mariadb:latest
 - curlimages/curl:8.7.1
+- mariadb:11.4
+- redis:7.4
+- wordpress:6.4.3-php8.2-apache
 Ports / ingress:
 - Ingress/wordpress: cms.thealgoera.com/
+- Service/mariadb: 3306/TCP -> 3306
+- Service/redis-master: 6379/TCP -> 6379
+- Service/wordpress: 80/TCP -> 80
 Resources:
-- none
+- mariadb: requests={'cpu': '500m', 'memory': '512Mi'}, limits={'cpu': '1000m', 'memory': '1Gi'}
+- redis: requests={'cpu': '100m', 'memory': '128Mi'}, limits={'cpu': '250m', 'memory': '256Mi'}
+- wordpress: requests={'cpu': '300m', 'memory': '512Mi'}, limits={'cpu': '1000m', 'memory': '1024Mi'}
 Dependencies:
 - PVC/cms-backups-pvc
 - PVC/cms-backups-wp-pvc
 - PVC/wordpress
 - Secret/mariadb
+- Secret/wordpress
 <!-- AUTO-GENERATED:END -->

@@ -16,6 +16,6 @@ spec:
             args:
             - /bin/sh
             - -ec
-            - 'curl -fsS https://cms.thealgoera.com/wp-cron.php?doing_wp_cron > /dev/null
+            - 'curl -fsS http://wordpress.cms.svc.cluster.local/wp-cron.php?doing_wp_cron > /dev/null
 
               '

@@ -25,5 +25,9 @@ prometheus:
         memory: 1Gi
     retention: 15d
 prometheusOperator:
+  admissionWebhooks:
+    enabled: false
+    patch:
+      enabled: false
   image:
     tag: v0.88.1

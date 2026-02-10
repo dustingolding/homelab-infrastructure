@@ -56,18 +56,25 @@ Metadata:
 - owners: dustin
 Deployed services:
 - Deployment/ingress-ingress-nginx-controller
+- Job/ingress-ingress-nginx-admission-create
+- Job/ingress-ingress-nginx-admission-patch
 - Service/ingress-ingress-nginx-controller
+- Service/ingress-ingress-nginx-controller-admission
 Helm values:
 - values/ingress.values.yaml
 Helm images (values):
 - none
 Images & versions:
 - registry.k8s.io/ingress-nginx/controller:v1.14.3@sha256:82917be97c0939f6ada1717bb39aa7e66c229d6cfb10dcfc8f1bd42f9efe0f81
+- registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.6.7@sha256:7c74a715af2c94cb734785b4d3ea1357b4f02b88e1e123c622a9cb68b62f669c
 Ports / ingress:
+- Service/ingress-ingress-nginx-controller-admission: 443/TCP -> webhook
 - Service/ingress-ingress-nginx-controller: 443/TCP -> https
 - Service/ingress-ingress-nginx-controller: 80/TCP -> http
 Resources:
 - controller: requests={'cpu': '100m', 'memory': '90Mi'}
 Dependencies:
+- Secret/ingress-ingress-nginx-admission
 - ServiceAccount/ingress-ingress-nginx
+- ServiceAccount/ingress-ingress-nginx-admission
 <!-- AUTO-GENERATED:END -->

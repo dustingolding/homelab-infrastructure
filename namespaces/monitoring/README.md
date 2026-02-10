@@ -79,6 +79,8 @@ Deployed services:
 - Deployment/prometheus-kube-prometheus-operator
 - Deployment/prometheus-kube-state-metrics
 - Ingress/grafana
+- Job/prometheus-kube-prometheus-admission-create
+- Job/prometheus-kube-prometheus-admission-patch
 - Service/alloy
 - Service/grafana
 - Service/loki
@@ -113,6 +115,7 @@ Images & versions:
 - docker.io/grafana/loki:3.6.4
 - docker.io/kiwigrid/k8s-sidecar:1.30.9
 - docker.io/nginxinc/nginx-unprivileged:1.29-alpine
+- ghcr.io/jkroepke/kube-webhook-certgen:1.7.4
 - memcached:1.6.39-alpine
 - prom/memcached-exporter:v0.15.4
 - quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0
@@ -159,6 +162,7 @@ Dependencies:
 - ServiceAccount/grafana
 - ServiceAccount/loki
 - ServiceAccount/loki-canary
+- ServiceAccount/prometheus-kube-prometheus-admission
 - ServiceAccount/prometheus-kube-prometheus-operator
 - ServiceAccount/prometheus-kube-state-metrics
 - ServiceAccount/prometheus-prometheus-node-exporter

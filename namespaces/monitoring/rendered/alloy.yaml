@@ -272,6 +272,9 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+          ports:
+            - containerPort: 12345
+              name: http-metrics
           readinessProbe:
             httpGet:
               path: /-/ready

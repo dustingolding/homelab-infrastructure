@@ -13,3 +13,5 @@ resources:
     memory: 256Mi
 service:
   type: ClusterIP
+testFramework:
+  enabled: false

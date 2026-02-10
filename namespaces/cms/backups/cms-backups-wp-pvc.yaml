@@ -4,7 +4,8 @@ metadata:
   name: cms-backups-wp-pvc
   namespace: cms
 spec:
-  accessModes: ["ReadWriteOnce"]
+  accessModes:
+  - ReadWriteOnce
   resources:
     requests:
       storage: 50Gi

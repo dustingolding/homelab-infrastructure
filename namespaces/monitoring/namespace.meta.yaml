@@ -1,26 +1,21 @@
 namespace: monitoring
 purpose: Metrics, alerting, and dashboards for cluster health.
-
 exposure:
   type: internal
   ingress: nginx
   domains:
-    - grafana.homelab.local
-
+  - grafana.homelab.local
 data:
   persistence: true
   components:
-    - prometheus
-    - grafana
-    - loki
+  - prometheus
+  - grafana
+  - loki
   backup_required: true
-
 dependencies:
-  - ingress-nginx
-  - observability
-
+- ingress-nginx
+- observability
 criticality: high
-rebuild_time_estimate: "30–60 minutes"
-
+rebuild_time_estimate: "30\u201360 minutes"
 owners:
-  - dustin
+- dustin

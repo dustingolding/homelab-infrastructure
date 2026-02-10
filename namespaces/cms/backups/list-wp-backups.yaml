@@ -10,7 +10,10 @@ spec:
   containers:
   - name: list
     image: alpine:3.20
-    command: ["/bin/sh", "-ec", "ls -la /backups && ls -la /backups/wp || true"]
+    command:
+    - /bin/sh
+    - -ec
+    - ls -la /backups && ls -la /backups/wp || true
     volumeMounts:
     - name: backups
       mountPath: /backups

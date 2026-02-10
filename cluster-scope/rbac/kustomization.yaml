@@ -23,8 +23,6 @@ resources:
   - kube-apiserver-kubelet-admin.clusterrolebinding.yaml
   - local-path-provisioner-bind.clusterrolebinding.yaml
   - local-path-provisioner-role.clusterrole.yaml
-  - loki-clusterrole.clusterrole.yaml
-  - loki-clusterrolebinding.clusterrolebinding.yaml
   - metrics-server:system:auth-delegator.clusterrolebinding.yaml
   - prometheus-kube-prometheus-operator.clusterrole.yaml
   - prometheus-kube-prometheus-operator.clusterrolebinding.yaml

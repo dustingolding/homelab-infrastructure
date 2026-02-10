@@ -22,7 +22,7 @@ externalDatabase:
   port: 3306
   user: dustin
 image:
-  tag: 6.9.1
+  tag: latest
 mariadb:
   enabled: false
 nodeSelector:

@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - admission
   - crds
+  - helmrepositories
   - ingressclasses
   - namespace
   - priority

@@ -4,6 +4,8 @@ resources:
   - apps/recipelab-api.deployment.yaml
   - apps/recipelab-api.service.yaml
   - apps/recipelab-config.configmap.yaml
+  - apps/ghcr-pull.secret.sops.yaml
+  - apps/recipelab-serviceaccount.yaml
   - apps/recipelab-postgres.service.yaml
   - apps/recipelab-postgres.statefulset.yaml
   - apps/recipelab-redis.deployment.yaml

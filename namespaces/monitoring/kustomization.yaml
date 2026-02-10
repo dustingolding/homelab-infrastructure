@@ -5,3 +5,8 @@ resources:
   - rendered/loki.yaml
   - rendered/prometheus.yaml
   - rendered/alloy.yaml
+patches:
+  - path: patches/grafana-drop-test-sa.yaml
+  - path: patches/grafana-drop-test-configmap.yaml
+  - path: patches/grafana-drop-test-pod.yaml
+  - path: patches/alloy-remove-ports.yaml

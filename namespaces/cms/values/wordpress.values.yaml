@@ -30,7 +30,6 @@ nodeSelector:
   node.platform: amd64
 persistence:
   enabled: true
-  existingClaim: wordpress
   size: 20Gi
 replicaCount: 1
 resources:

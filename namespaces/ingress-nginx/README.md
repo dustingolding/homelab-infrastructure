@@ -55,17 +55,19 @@ Metadata:
 - rebuild_time_estimate: 15–30 minutes
 - owners: dustin
 Deployed services:
-- none
+- Deployment/ingress-ingress-nginx-controller
+- Service/ingress-ingress-nginx-controller
 Helm values:
 - values/ingress.values.yaml
 Helm images (values):
 - none
 Images & versions:
-- none
+- registry.k8s.io/ingress-nginx/controller:v1.14.3@sha256:82917be97c0939f6ada1717bb39aa7e66c229d6cfb10dcfc8f1bd42f9efe0f81
 Ports / ingress:
-- none
+- Service/ingress-ingress-nginx-controller: 443/TCP -> https
+- Service/ingress-ingress-nginx-controller: 80/TCP -> http
 Resources:
-- none
+- controller: requests={'cpu': '100m', 'memory': '90Mi'}
 Dependencies:
-- none
+- ServiceAccount/ingress-ingress-nginx
 <!-- AUTO-GENERATED:END -->

@@ -59,6 +59,25 @@ metadata:
     helm.sh/chart: wordpress-28.1.5
 automountServiceAccountToken: false
 ---
+# Source: wordpress/templates/pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: wordpress
+  namespace: "cms"
+  labels:
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: wordpress
+    app.kubernetes.io/version: 6.9.1
+    helm.sh/chart: wordpress-28.1.5
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "20Gi"
+---
 # Source: wordpress/templates/svc.yaml
 apiVersion: v1
 kind: Service

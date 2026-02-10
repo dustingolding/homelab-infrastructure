@@ -1,5 +1,7 @@
 backend:
   replicas: 0
+chunksCache:
+  enabled: false
 deploymentMode: SingleBinary
 gateway:
   image:
@@ -34,10 +36,6 @@ loki:
 memcached:
   image:
     tag: 1.6.39-alpine
-chunksCache:
-  enabled: false
-test:
-  enabled: false
 memcachedExporter:
   image:
     tag: v0.15.4

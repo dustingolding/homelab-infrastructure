@@ -1,6 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources:
-  - ingress-ingress-nginx-admission.validatingwebhookconfiguration.yaml
+resources: []
   - prometheus-kube-prometheus-admission.mutatingwebhookconfiguration.yaml
   - prometheus-kube-prometheus-admission.validatingwebhookconfiguration.yaml

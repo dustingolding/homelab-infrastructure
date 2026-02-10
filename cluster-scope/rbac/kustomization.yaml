@@ -19,8 +19,6 @@ resources:
   - grafana-clusterrolebinding.clusterrolebinding.yaml
   - helm-kube-system-traefik-crd.clusterrolebinding.yaml
   - helm-kube-system-traefik.clusterrolebinding.yaml
-  - ingress-ingress-nginx.clusterrole.yaml
-  - ingress-ingress-nginx.clusterrolebinding.yaml
   - k3s-cloud-controller-manager-auth-delegator.clusterrolebinding.yaml
   - k3s-cloud-controller-manager.clusterrole.yaml
   - k3s-cloud-controller-manager.clusterrolebinding.yaml

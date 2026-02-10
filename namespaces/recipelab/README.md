@@ -72,9 +72,9 @@ Helm images (values):
 - none
 Images & versions:
 - pgvector/pgvector:pg16
-- ghcr.io/dustingolding/recipelab-api:0.1.0
-- ghcr.io/dustingolding/recipelab-web:0.1.0
-- ghcr.io/dustingolding/recipelab-worker:0.1.0
+- ghcr.io/dustingolding/recipelab-api:0.1.1
+- ghcr.io/dustingolding/recipelab-web:0.1.1
+- ghcr.io/dustingolding/recipelab-worker:0.1.1
 - redis:7.2-alpine
 Ports / ingress:
 - Ingress/recipelab: recipelab.homelab.local/

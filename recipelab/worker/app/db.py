@@ -38,6 +38,7 @@ def ensure_schema() -> None:
     with get_conn() as conn:
         with conn.cursor() as cur:
             cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
+            embedding_dim = int(_env("RECIPES_EMBEDDING_DIM", "1536"))
             cur.execute(
                 """
                 CREATE TABLE IF NOT EXISTS recipes (
@@ -50,17 +51,16 @@ def ensure_schema() -> None:
                 """
             )
             cur.execute(
-                """
+                f"""
                 CREATE TABLE IF NOT EXISTS recipe_chunks (
                     id UUID PRIMARY KEY,
                     recipe_id UUID REFERENCES recipes(id) ON DELETE CASCADE,
                     chunk_index INT NOT NULL,
                     content TEXT NOT NULL,
-                    embedding VECTOR(%s),
+                    embedding VECTOR({embedding_dim}),
                     created_at TIMESTAMPTZ DEFAULT NOW()
                 );
-                """,
-                (int(_env("RECIPES_EMBEDDING_DIM", "1536")),),
+                """
             )
             cur.execute(
                 """

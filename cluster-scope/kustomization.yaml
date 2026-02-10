@@ -8,4 +8,4 @@ resources:
   - priority
   - rbac
   - storage
-  - rendered/traefik.yaml
+  - rendered

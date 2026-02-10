@@ -8,7 +8,6 @@ resources:
   - backups/list-wp-backups.yaml
   - backups/mariadb-backup-cronjob.yaml
   - backups/mariadb-restore-test-cronjob.yaml
-  - backups/mariadb-restore-test-job.yaml
   - backups/wordpress-backup-cronjob.yaml
   - backups/wp-cronjob.yaml
   - network/wordpress.ingress.yaml

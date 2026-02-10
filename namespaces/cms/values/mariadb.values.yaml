@@ -5,7 +5,7 @@ auth:
   rootPassword: <<REDACTED>>
   username: dustin
 image:
-  tag: 12.1.2
+  tag: latest
 metrics:
   image:
     tag: 0.16.0

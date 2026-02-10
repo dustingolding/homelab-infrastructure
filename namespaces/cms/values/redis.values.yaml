@@ -1,7 +1,7 @@
 auth:
   enabled: false
 image:
-  tag: 8.4.0
+  tag: latest
 master:
   disableCommands: []
   persistence:
@@ -25,4 +25,4 @@ resources:
     memory: 128Mi
 sentinel:
   image:
-    tag: 8.4.0
+    tag: latest

@@ -9,6 +9,7 @@ Workers (virtualized):
 
 Workers (ARM):
 - k3s-w3 — Raspberry Pi
+- k3s-w4 — Raspberry Pi
 
 Workers (bare metal):
-- k3s-baremetal-w4 — Standalone server
+- k3s-baremetal-01 — Standalone server

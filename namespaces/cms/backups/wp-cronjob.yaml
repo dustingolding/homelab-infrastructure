@@ -4,7 +4,7 @@ metadata:
   name: wp-cron
   namespace: cms
 spec:
-  schedule: "*/5 * * * *"
+  schedule: '*/5 * * * *'
   jobTemplate:
     spec:
       template:
@@ -14,7 +14,8 @@ spec:
           - name: wp-cron
             image: curlimages/curl:8.7.1
             args:
-              - /bin/sh
-              - -ec
-              - >
-                curl -fsS https://cms.thealgoera.com/wp-cron.php?doing_wp_cron > /dev/null
+            - /bin/sh
+            - -ec
+            - 'curl -fsS http://wordpress.cms.svc.cluster.local/wp-cron.php?doing_wp_cron > /dev/null
+
+              '

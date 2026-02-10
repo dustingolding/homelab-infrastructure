@@ -1762,19 +1762,9 @@ data:
     }[5m])\n      > 0\n    for: 5m\n    labels:\n      severity: warning\n"
 kind: ConfigMap
 metadata:
-  creationTimestamp: '2026-02-04T05:05:02Z'
   labels:
     app.kubernetes.io/managed-by: prometheus-operator
     managed-by: prometheus-operator
     prometheus-name: prometheus-kube-prometheus-prometheus
   name: prometheus-prometheus-kube-prometheus-prometheus-rulefiles-0
   namespace: monitoring
-  ownerReferences:
-  - apiVersion: monitoring.coreos.com/v1
-    blockOwnerDeletion: true
-    controller: true
-    kind: Prometheus
-    name: prometheus-kube-prometheus-prometheus
-    uid: 83ab0878-8320-4432-81fe-bb5204d0fdac
-  resourceVersion: '4121'
-  uid: b9b450d4-9b89-4236-9b42-a8479886718f

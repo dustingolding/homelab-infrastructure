@@ -72,8 +72,18 @@ Deployed services:
 - CronJob/mariadb-restore-test
 - CronJob/wordpress-backup
 - CronJob/wp-cron
+- Deployment/wordpress
 - Ingress/wordpress
 - Job/mariadb-restore-test
+- Service/mariadb
+- Service/mariadb-headless
+- Service/redis-headless
+- Service/redis-master
+- Service/redis-replicas
+- Service/wordpress
+- StatefulSet/mariadb
+- StatefulSet/redis-master
+- StatefulSet/redis-replicas
 Helm values:
 - values/mariadb.values.yaml
 - values/redis.values.yaml
@@ -84,13 +94,35 @@ Images & versions:
 - alpine:3.20
 - bitnami/mariadb:latest
 - curlimages/curl:8.7.1
+- registry-1.docker.io/bitnami/mariadb:latest
+- registry-1.docker.io/bitnami/redis:latest
+- registry-1.docker.io/bitnami/wordpress:latest
 Ports / ingress:
 - Ingress/wordpress: cms.thealgoera.com/
+- Service/mariadb-headless: 3306/TCP -> mysql
+- Service/mariadb: 3306/TCP -> mysql
+- Service/redis-headless: 6379/TCP -> redis
+- Service/redis-master: 6379/TCP -> redis
+- Service/redis-replicas: 6379/TCP -> redis
+- Service/wordpress: 443/TCP -> https
+- Service/wordpress: 80/TCP -> http
 Resources:
-- none
+- mariadb: requests={'cpu': '500m', 'ephemeral-storage': '50Mi', 'memory': '512Mi'}, limits={'cpu': '750m', 'ephemeral-storage': '2Gi', 'memory': '768Mi'}
+- prepare-base-dir: requests={'cpu': '300m', 'memory': '512Mi'}, limits={'cpu': '1000m', 'memory': '1024Mi'}
+- preserve-logs-symlinks: requests={'cpu': '500m', 'ephemeral-storage': '50Mi', 'memory': '512Mi'}, limits={'cpu': '750m', 'ephemeral-storage': '2Gi', 'memory': '768Mi'}
+- redis: requests={'cpu': '100m', 'ephemeral-storage': '50Mi', 'memory': '128Mi'}, limits={'cpu': '150m', 'ephemeral-storage': '2Gi', 'memory': '192Mi'}
+- wordpress: requests={'cpu': '300m', 'memory': '512Mi'}, limits={'cpu': '1000m', 'memory': '1024Mi'}
 Dependencies:
+- ConfigMap/mariadb
+- ConfigMap/redis-configuration
+- ConfigMap/redis-health
+- ConfigMap/redis-scripts
 - PVC/cms-backups-pvc
 - PVC/cms-backups-wp-pvc
 - PVC/wordpress
 - Secret/mariadb
+- ServiceAccount/mariadb
+- ServiceAccount/redis-master
+- ServiceAccount/redis-replica
+- ServiceAccount/wordpress
 <!-- AUTO-GENERATED:END -->

@@ -12,7 +12,7 @@ kubectl label node k3s-w2 node.type=vm node.platform=amd64
 kubectl label node k3s-w3 node.type=pi node.platform=arm64
 
 # Bare metal
-kubectl label node k3s-baremetal-w4 node.type=baremetal node.platform=amd64
+kubectl label node k3s-baremetal-01 node.type=baremetal node.platform=amd64
 ```
 
 Verify:

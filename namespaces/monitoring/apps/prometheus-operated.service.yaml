@@ -1,20 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: '2026-02-04T05:05:02Z'
   labels:
     app.kubernetes.io/managed-by: prometheus-operator
     managed-by: prometheus-operator
     operated-prometheus: 'true'
   name: prometheus-operated
   namespace: monitoring
-  ownerReferences:
-  - apiVersion: monitoring.coreos.com/v1
-    kind: Prometheus
-    name: prometheus-kube-prometheus-prometheus
-    uid: 83ab0878-8320-4432-81fe-bb5204d0fdac
-  resourceVersion: '4127'
-  uid: 7ccb4e28-52aa-4a1d-88f4-b310e4e97d9b
 spec:
   clusterIP: None
   clusterIPs:
@@ -32,5 +24,3 @@ spec:
     app.kubernetes.io/name: prometheus
   sessionAffinity: None
   type: ClusterIP
-status:
-  loadBalancer: {}

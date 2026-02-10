@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ingress-ingress-nginx-admission-create
+  namespace: ingress-nginx
+  annotations:
+    helm.sh/hook: null
+    helm.sh/hook-delete-policy: null
+spec:
+  ttlSecondsAfterFinished: 3600
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ingress-ingress-nginx-admission-patch
+  namespace: ingress-nginx
+  annotations:
+    helm.sh/hook: null
+    helm.sh/hook-delete-policy: null
+spec:
+  ttlSecondsAfterFinished: 3600

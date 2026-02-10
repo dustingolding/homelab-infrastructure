@@ -4,7 +4,7 @@ metadata:
   name: mariadb-backup
   namespace: cms
 spec:
-  schedule: "0 2 * * *"
+  schedule: 0 2 * * *
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   jobTemplate:
@@ -30,13 +30,10 @@ spec:
             command:
             - /bin/bash
             - -ec
-            - |
-              TS=$(date +%F_%H%M)
-              OUTDIR=/backups/db
-              mkdir -p "${OUTDIR}"
-              mariadb-dump -h "${DB_HOST}" -u "${DB_USER}" -p"${DB_PASS}" "${DB_NAME}" \
-                | gzip > "${OUTDIR}/wordpress_${TS}.sql.gz"
-              find "${OUTDIR}" -type f -mtime +14 -name "*.sql.gz" -delete
+            - "TS=$(date +%F_%H%M)\nOUTDIR=/backups/db\nmkdir -p \"${OUTDIR}\"\nmariadb-dump\
+              \ -h \"${DB_HOST}\" -u \"${DB_USER}\" -p\"${DB_PASS}\" \"${DB_NAME}\"\
+              \ \\\n  | gzip > \"${OUTDIR}/wordpress_${TS}.sql.gz\"\nfind \"${OUTDIR}\"\
+              \ -type f -mtime +14 -name \"*.sql.gz\" -delete\n"
             volumeMounts:
             - name: backups
               mountPath: /backups

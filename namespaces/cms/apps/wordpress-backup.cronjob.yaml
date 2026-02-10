@@ -1,20 +1,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"batch/v1","kind":"CronJob","metadata":{"annotations":{},"name":"wordpress-backup","namespace":"cms"},"spec":{"failedJobsHistoryLimit":3,"jobTemplate":{"spec":{"template":{"spec":{"containers":[{"command":["/bin/sh","-ec","TS=$(date
-      +%F_%H%M)\nOUTDIR=/backups/wp\nmkdir -p \"${OUTDIR}\"\ntar -czf \"${OUTDIR}/wp-content_${TS}.tar.gz\"
-      -C /source wp-content\nfind \"${OUTDIR}\" -type f -mtime +14 -name \"*.tar.gz\"
-      -delete\n"],"image":"alpine:3.20","name":"wordpress-backup","volumeMounts":[{"mountPath":"/source","name":"wordpress-data","readOnly":true,"subPath":"wordpress"},{"mountPath":"/backups","name":"backups"}]}],"nodeSelector":{"kubernetes.io/hostname":"k3s-w1"},"restartPolicy":"OnFailure","volumes":[{"name":"wordpress-data","persistentVolumeClaim":{"claimName":"wordpress"}},{"name":"backups","persistentVolumeClaim":{"claimName":"cms-backups-wp-pvc"}}]}}}},"schedule":"15
-      2 * * *","successfulJobsHistoryLimit":3}}
-
-      '
-  creationTimestamp: '2026-02-07T05:19:24Z'
   generation: 3
   name: wordpress-backup
   namespace: cms
-  resourceVersion: '232190'
-  uid: cac472ff-724b-4431-9d48-640323b16b75
 spec:
   concurrencyPolicy: Allow
   failedJobsHistoryLimit: 3
@@ -69,6 +58,3 @@ spec:
   schedule: 15 2 * * *
   successfulJobsHistoryLimit: 3
   suspend: false
-status:
-  lastScheduleTime: '2026-02-08T02:15:00Z'
-  lastSuccessfulTime: '2026-02-08T02:15:04Z'

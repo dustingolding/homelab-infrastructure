@@ -4,7 +4,7 @@ metadata:
   name: mariadb-restore-test
   namespace: cms
 spec:
-  schedule: "30 3 * * 0"
+  schedule: 30 3 * * 0
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 3
@@ -17,35 +17,34 @@ spec:
           nodeSelector:
             kubernetes.io/hostname: k3s-w3
           containers:
-            - name: restore-test
-              image: bitnami/mariadb:latest
-              imagePullPolicy: IfNotPresent
-              env:
-                - name: MARIADB_ROOT_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: mariadb
-                      key: mariadb-root-password
-              command:
-                - /bin/bash
-                - -ec
-                - |
-                  latest_file=$(ls -t /backups/db/*.sql.gz | head -n 1)
-                  if [ -z "$latest_file" ]; then
-                    echo "No backup files found in /backups/db" >&2
-                    exit 1
-                  fi
-                  echo "Using backup: $latest_file"
-
-                  mariadb -h mariadb.cms.svc.cluster.local -u root -p"$MARIADB_ROOT_PASSWORD" -e "DROP DATABASE IF EXISTS wordpress_restore_test; CREATE DATABASE wordpress_restore_test;"
-                  gunzip -c "$latest_file" | mariadb -h mariadb.cms.svc.cluster.local -u root -p"$MARIADB_ROOT_PASSWORD" wordpress_restore_test
-
-                  mariadb -h mariadb.cms.svc.cluster.local -u root -p"$MARIADB_ROOT_PASSWORD" -e "SELECT COUNT(*) AS tables_count FROM information_schema.tables WHERE table_schema='wordpress_restore_test';"
-                  mariadb -h mariadb.cms.svc.cluster.local -u root -p"$MARIADB_ROOT_PASSWORD" -e "DROP DATABASE IF EXISTS wordpress_restore_test;"
-              volumeMounts:
-                - name: backups
-                  mountPath: /backups
-          volumes:
+          - name: restore-test
+            image: bitnami/mariadb:latest
+            imagePullPolicy: IfNotPresent
+            env:
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb
+                  key: mariadb-root-password
+            command:
+            - /bin/bash
+            - -ec
+            - "latest_file=$(ls -t /backups/db/*.sql.gz | head -n 1)\nif [ -z \"$latest_file\"\
+              \ ]; then\n  echo \"No backup files found in /backups/db\" >&2\n  exit\
+              \ 1\nfi\necho \"Using backup: $latest_file\"\n\nmariadb -h mariadb.cms.svc.cluster.local\
+              \ -u root -p\"$MARIADB_ROOT_PASSWORD\" -e \"DROP DATABASE IF EXISTS\
+              \ wordpress_restore_test; CREATE DATABASE wordpress_restore_test;\"\n\
+              gunzip -c \"$latest_file\" | mariadb -h mariadb.cms.svc.cluster.local\
+              \ -u root -p\"$MARIADB_ROOT_PASSWORD\" wordpress_restore_test\n\nmariadb\
+              \ -h mariadb.cms.svc.cluster.local -u root -p\"$MARIADB_ROOT_PASSWORD\"\
+              \ -e \"SELECT COUNT(*) AS tables_count FROM information_schema.tables\
+              \ WHERE table_schema='wordpress_restore_test';\"\nmariadb -h mariadb.cms.svc.cluster.local\
+              \ -u root -p\"$MARIADB_ROOT_PASSWORD\" -e \"DROP DATABASE IF EXISTS\
+              \ wordpress_restore_test;\"\n"
+            volumeMounts:
             - name: backups
-              persistentVolumeClaim:
-                claimName: cms-backups-pvc
+              mountPath: /backups
+          volumes:
+          - name: backups
+            persistentVolumeClaim:
+              claimName: cms-backups-pvc

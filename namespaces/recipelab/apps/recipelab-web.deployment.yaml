@@ -17,7 +17,7 @@ spec:
         node.platform: amd64
       containers:
       - name: web
-        image: recipelab-web:0.1.0
+        image: ghcr.io/dustingolding/recipelab-web:0.1.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

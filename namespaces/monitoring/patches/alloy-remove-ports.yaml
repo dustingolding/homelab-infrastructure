@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: alloy
+  namespace: monitoring
+spec:
+  template:
+    spec:
+      containers:
+        - name: alloy
+          ports: []

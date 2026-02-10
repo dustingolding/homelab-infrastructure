@@ -4,7 +4,7 @@ metadata:
   name: wordpress-backup
   namespace: cms
 spec:
-  schedule: "15 2 * * *"
+  schedule: 15 2 * * *
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   jobTemplate:
@@ -18,12 +18,17 @@ spec:
             command:
             - /bin/sh
             - -ec
-            - |
-              TS=$(date +%F_%H%M)
+            - 'TS=$(date +%F_%H%M)
+
               OUTDIR=/backups/wp
+
               mkdir -p "${OUTDIR}"
+
               tar -czf "${OUTDIR}/wp-content_${TS}.tar.gz" -C /source wp-content
+
               find "${OUTDIR}" -type f -mtime +14 -name "*.tar.gz" -delete
+
+              '
             volumeMounts:
             - name: wordpress-data
               mountPath: /source

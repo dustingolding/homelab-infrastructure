@@ -9,17 +9,5 @@ data:
     \n  }\n}\n"
 kind: ConfigMap
 metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"v1","data":{"alloy-config.yaml":"discovery.kubernetes
-      \"pods\" {\n  role = \"pod\"\n}\n\nloki.relabel \"add_cluster\" {\n  rule {\n    action        =
-      \"replace\"\n    target_label  = \"cluster\"\n    replacement   = \"homelab\"\n  }\n\n  forward_to
-      = [loki.write.loki.receiver]\n}\n\nloki.source.kubernetes \"pods\" {\n  targets    =
-      discovery.kubernetes.pods.targets\n  forward_to = [loki.relabel.add_cluster.receiver]\n}\n\nloki.write
-      \"loki\" {\n  endpoint {\n    url = \"http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push\"\n  }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"alloy-config","namespace":"observability"}}
-
-      '
-  creationTimestamp: '2026-02-05T02:53:18Z'
   name: alloy-config
   namespace: observability
-  resourceVersion: '97393'
-  uid: ee6082bb-a052-4e4e-ba8d-5427b706f63f

@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - rendered/grafana.yaml
+  - rendered/loki.yaml
+  - rendered/prometheus.yaml
+  - rendered/alloy.yaml
+patches:
+  - path: patches/alloy-remove-ports.yaml
+  - path: patches/grafana-drop-test-sa.yaml
+  - path: patches/grafana-drop-test-configmap.yaml
+  - path: patches/grafana-drop-test-pod.yaml
+  - path: patches/loki-drop-helm-test.yaml
+  - path: patches/prometheus-admission-jobs-delete.yaml

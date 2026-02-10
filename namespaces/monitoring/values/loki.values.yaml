@@ -1,5 +1,7 @@
 backend:
   replicas: 0
+chunksCache:
+  enabled: false
 deploymentMode: SingleBinary
 gateway:
   image:

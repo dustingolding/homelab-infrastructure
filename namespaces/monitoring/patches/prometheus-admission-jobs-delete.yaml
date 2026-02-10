@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prometheus-kube-prometheus-admission-create
+  namespace: monitoring
+$patch: delete
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prometheus-kube-prometheus-admission-patch
+  namespace: monitoring
+$patch: delete

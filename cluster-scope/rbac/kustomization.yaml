@@ -15,8 +15,6 @@ resources:
   - clustercidrs-node.clusterrole.yaml
   - clustercidrs-node.clusterrolebinding.yaml
   - edit.clusterrole.yaml
-  - grafana-clusterrole.clusterrole.yaml
-  - grafana-clusterrolebinding.clusterrolebinding.yaml
   - helm-kube-system-traefik-crd.clusterrolebinding.yaml
   - helm-kube-system-traefik.clusterrolebinding.yaml
   - k3s-cloud-controller-manager-auth-delegator.clusterrolebinding.yaml

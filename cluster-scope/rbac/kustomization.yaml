@@ -155,6 +155,4 @@ resources:
   - system:service-account-issuer-discovery.clusterrolebinding.yaml
   - system:volume-scheduler.clusterrole.yaml
   - system:volume-scheduler.clusterrolebinding.yaml
-  - traefik-kube-system.clusterrole.yaml
-  - traefik-kube-system.clusterrolebinding.yaml
   - view.clusterrole.yaml

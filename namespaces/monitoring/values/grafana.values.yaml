@@ -1,9 +1,16 @@
-adminPassword: <<REDACTED>>
 adminUser: admin
+admin:
+  existingSecret: grafana-admin
+  userKey: admin-user
+  passwordKey: admin-password
 image:
   tag: 12.3.1
 nodeSelector:
   node.platform: amd64
+persistence:
+  enabled: true
+  size: 10Gi
+  storageClassName: local-path
 resources:
   limits:
     cpu: 500m
@@ -13,3 +20,38 @@ resources:
     memory: 256Mi
 service:
   type: ClusterIP
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+        isDefault: true
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki.monitoring.svc.cluster.local:3100
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: default
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+dashboards:
+  default:
+    node-exporter-full:
+      gnetId: 1860
+      revision: 1
+      datasource: Prometheus
+    loki-dashboard:
+      gnetId: 15757
+      revision: 1
+      datasource: Loki

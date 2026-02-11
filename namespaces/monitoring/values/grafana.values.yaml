@@ -1,9 +1,52 @@
-adminPassword: <<REDACTED>>
+admin:
+  existingSecret: grafana-admin
+  passwordKey: admin-password
+  userKey: admin-user
 adminUser: admin
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - disableDeletion: false
+      editable: true
+      folder: ''
+      name: default
+      options:
+        path: /var/lib/grafana/dashboards/default
+      orgId: 1
+      type: file
+dashboards:
+  default:
+    loki-dashboard:
+      datasource: Loki
+      gnetId: 15757
+      revision: 1
+    node-exporter-full:
+      datasource: Prometheus
+      gnetId: 1860
+      revision: 1
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - access: proxy
+      isDefault: true
+      name: Prometheus
+      type: prometheus
+      url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+    - access: proxy
+      name: Loki
+      type: loki
+      url: http://loki.monitoring.svc.cluster.local:3100
 image:
   tag: 12.3.1
 nodeSelector:
   node.platform: amd64
+persistence:
+  enabled: true
+  existingClaim: grafana
+  size: 10Gi
+  storageClassName: local-path
 resources:
   limits:
     cpu: 500m

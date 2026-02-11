@@ -92,6 +92,10 @@ def export_values():
         data = yaml.safe_load(out.stdout) or {}
         if isinstance(data, dict) and "USER-SUPPLIED VALUES" in data:
             data.pop("USER-SUPPLIED VALUES", None)
+        # If Grafana uses an existing secret, drop adminPassword from exported values
+        if isinstance(data, dict) and isinstance(data.get("admin"), dict):
+            if data["admin"].get("existingSecret"):
+                data.pop("adminPassword", None)
         data = sanitize(data)
         out_path = ROOT / "namespaces" / ns_folder / "values" / f"{rel}.values.yaml"
         out_path.parent.mkdir(parents=True, exist_ok=True)

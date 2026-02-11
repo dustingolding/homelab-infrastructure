@@ -6,6 +6,8 @@ allow_keys:
   - secretRef
   - secretKeyRef
   - secret
+  - passwordKey
+  - userKey
 
 deny_patterns:
   - password

@@ -11,9 +11,5 @@ resources:
   requests:
     cpu: 200m
     memory: 256Mi
-persistence:
-  enabled: true
-  size: 10Gi
-  storageClassName: local-path
 service:
   type: ClusterIP

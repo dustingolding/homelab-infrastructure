@@ -10,5 +10,4 @@ patches:
   - path: patches/grafana-drop-test-sa.yaml
   - path: patches/grafana-drop-test-configmap.yaml
   - path: patches/grafana-drop-test-pod.yaml
-  - path: patches/loki-drop-helm-test.yaml
   - path: patches/prometheus-admission-jobs-delete.yaml

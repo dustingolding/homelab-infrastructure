@@ -1,4 +1,4 @@
-adminPassword: admin123
+adminPassword: <<REDACTED>>
 adminUser: admin
 image:
   tag: 12.3.1

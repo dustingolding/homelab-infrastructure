@@ -99,6 +99,7 @@ Helm values:
 Helm images (values):
 - none
 Images & versions:
+- docker.io/curlimages/curl:8.9.1
 - docker.io/grafana/alloy:v1.12.2
 - docker.io/grafana/grafana:12.3.1
 - docker.io/library/busybox:1.31.1
@@ -128,8 +129,9 @@ Resources:
 Dependencies:
 - ConfigMap/alloy
 - ConfigMap/grafana
+- ConfigMap/grafana-dashboards-default
 - PVC/grafana
-- Secret/grafana
+- Secret/grafana-admin
 - Secret/prometheus-kube-prometheus-admission
 - ServiceAccount/alloy
 - ServiceAccount/grafana
